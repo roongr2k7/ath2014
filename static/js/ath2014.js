@@ -1,8 +1,10 @@
-var app = angular.module("ath2014", ['ngRoute', 'facebook']);
+var app = angular.module("ath2014", ['ngRoute', 'ezfb']);
 
-app.config(['FacebookProvider', function(FacebookProvider) {
-     FacebookProvider.init('302908129857189');
-}])
+app.config(function(ezfbProvider) {
+  ezfbProvider.setInitParams({
+    appId: '302908129857189'
+  });
+});
 
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
@@ -24,7 +26,7 @@ app.controller("homeController", function($scope, $http, $routeParams) {
   });
 });
 
-app.controller("topicController", function($scope, $location, Facebook, $routeParams) {
+app.controller("topicController", function($scope, $location, $routeParams) {
   $scope.permalink = $routeParams.permalink;
   $scope.url = $location.absUrl();
 
