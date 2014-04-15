@@ -9,19 +9,19 @@ app.config(function(ezfbProvider) {
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
     .when('/topic/:permalink', {
-      templateUrl: 'pages/topic.html',
+      templateUrl: '/static/pages/topic.html',
       controller: 'topicController'
     })
     .when('/', {
-      templateUrl: 'pages/home.html',
+      templateUrl: '/static/pages/home.html',
       controller: 'homeController'
     });
-  $locationProvider.html5Mode(false);
+  $locationProvider.html5Mode(true);
 });
 
 app.controller("homeController", function($scope, $http, $routeParams) {
   $scope.topics = [];
-  $http.get('/topics').success(function(data) {
+  $http.get('/api/topics').success(function(data) {
      $scope.topics = data;
   });
 });
