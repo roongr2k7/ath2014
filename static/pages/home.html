@@ -1,7 +1,7 @@
-<h1>Topics</h1>
+<h1>หัวข้อ</h1>
 <ul class="list-group">
-  <a class="list-group-item" ng-repeat="topic in topics" ng-attr-href="#topic/{{topic.Permalink}}">
-  <span class="badge">14</span>
-   {{topic.Title}}
+  <a class="list-group-item" ng-repeat="topic in topics" ng-attr-href="#topic/{{topic.permalink}}">
+  <span class="badge">{{topic.likes}}</span>
+   {{topic.title}}
   </a>
 </ul>
