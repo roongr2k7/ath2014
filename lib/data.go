@@ -1,4 +1,4 @@
-package lib 
+package lib
 
 import (
   "labix.org/v2/mgo"
