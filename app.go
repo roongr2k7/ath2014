@@ -4,12 +4,14 @@ import (
 	"./lib"
 	"log"
 	"net/http"
+	"encoding/json"
+	"io/ioutil"
 )
 
 func main() {
+	http.Handle("/", http.FileServer(http.Dir("./webroot")))
 	http.HandleFunc("/api/topics", topics)
-  //http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
-  http.Handle("/", http.FileServer(http.Dir("./webroot")))
+	http.HandleFunc("/topic/", serveIndex)
 	log.Println("Listening...")
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
@@ -18,10 +20,18 @@ func main() {
 }
 
 func serveIndex(w http.ResponseWriter, r *http.Request) {
-  http.ServeFile(w, r, "./static/index.html")
+	http.ServeFile(w, r, "./webroot/index.html")
 }
 
 func topics(w http.ResponseWriter, r *http.Request) {
 	controller := lib.Controller{}
-	w.Write(controller.GetTopics())
+	switch r.Method {
+	case "POST":
+		topic := lib.Topic {}
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &topic)
+		controller.InsertTopic(topic)
+	case "GET":
+		w.Write(controller.GetTopics())
+	}
 }

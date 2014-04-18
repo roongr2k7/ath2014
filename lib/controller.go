@@ -1,20 +1,23 @@
-package lib 
+package lib
 
 import (
-  "encoding/json"
+	"encoding/json"
 )
 
-
 type Controller struct {
-  dataAccess DataAccess
+	dataAccess DataAccess
 }
 
-func CreateController() Controller { 
-  return Controller{ DataAccess{} } 
+func CreateController() Controller {
+	return Controller{DataAccess{}}
+}
+
+func (c Controller) InsertTopic(topic Topic) {
+	c.dataAccess.InsertTopic(topic)
 }
 
 func (c Controller) GetTopics() []byte {
-  topics := c.dataAccess.GetTopics() 
-  json, _ := json.Marshal(topics)
-  return json
+	topics := c.dataAccess.GetTopics()
+	json, _ := json.Marshal(topics)
+	return json
 }

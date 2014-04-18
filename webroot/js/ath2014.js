@@ -9,11 +9,11 @@ app.config(function(ezfbProvider) {
 app.config(function($routeProvider, $locationProvider) {
   $routeProvider
     .when('/topic/:permalink', {
-      templateUrl: 'pages/topic.html',
+      templateUrl: '/pages/topic.html',
       controller: 'topicController'
     })
     .when('/', {
-      templateUrl: 'pages/home.html',
+      templateUrl: '/pages/home.html',
       controller: 'homeController'
     });
   $locationProvider.html5Mode(true);
